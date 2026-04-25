@@ -13,7 +13,7 @@ def send():
         return jsonify({"error": "bad json"}), 400
     
     payload = data.get("AES", "")
-    print("RECEIVED:", payload)
+    print(f"RECEIVED: {payload}")
     return jsonify({"status": "ok"})
 
 @app.route("/get", methods=["GET"])
@@ -24,6 +24,7 @@ def get():
     
     temp = payload
     payload = ""
+    print(f"SENT TO CLIENT: {temp}")
     return jsonify({"AES": temp})
 
 @app.route("/report", methods=["POST"])
@@ -34,7 +35,7 @@ def report_post():
         return jsonify({"error": "bad json"}), 400
     
     report = {"roblox_user": data.get("roblox_user", "")}
-    print("REPORT:", report)
+    print(f"REPORT: {report}")
     return jsonify({"status": "ok"})
 
 @app.route("/report", methods=["GET"])
@@ -48,4 +49,4 @@ def report_get():
     return jsonify(temp)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)
